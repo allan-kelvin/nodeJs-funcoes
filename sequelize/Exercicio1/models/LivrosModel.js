@@ -1,6 +1,9 @@
 const sequelize = require('../configBanco');
 const {DataTypes} = require('sequelize');
 
+const Autores = sequelize.define('../models/AutoresModel.js');
+const Categorias = sequelize.define('../models/CategoriasModel.js');
+
 const Livros = sequelize.define('livros', {
     id: {
         type: DataTypes.INTEGER,
@@ -40,6 +43,8 @@ const Livros = sequelize.define('livros', {
 
 // Um autor pode ter vários livros
 Autores.hasMany(Livros, { foreignKey: 'autor_id' });
+Livros.belongsTo(Autores, { foreignKey: 'autor_id' });
 
 // Uma categoria pode ter vários livros
-Categoria.hasMany(Livros, { foreignKey: 'categoria_id' });
+Categorias.hasMany(Livros, { foreignKey: 'categoria_id' });
+Livros.belongsTo(Categorias, { foreignKey: 'categoria_id' });
